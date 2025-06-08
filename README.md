@@ -1,6 +1,10 @@
+<a href="https://gigapipe.com" target="_blank">
+  <img src='https://github.com/user-attachments/assets/fc8c7ca9-7a18-403d-b2a6-17899a534d33' style="margin-left:-10px;width:200px;" height=200 >
+</a>
+
 # Gigapipe MCP Server
 
-A Machine Control Protocol (MCP) server for Gigapipe, providing a unified interface to query Prometheus metrics, Loki logs, and Tempo traces.
+A Machine Control Protocol (MCP) server for Gigapipe to query metrics, logs, and traces
 
 ## Features
 
