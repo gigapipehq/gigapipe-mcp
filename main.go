@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/mark3labs/mcp-go/mcp"
@@ -26,7 +27,12 @@ type Config struct {
 func getConfig() Config {
 	host := os.Getenv("GIGAPIPE_HOST")
 	if host == "" {
-		host = defaultGigapipeHost
+		host = "http://localhost:3100"
+	}
+
+	// Ensure host has a protocol
+	if !strings.HasPrefix(host, "http://") && !strings.HasPrefix(host, "https://") {
+		host = "http://" + host
 	}
 
 	return Config{
@@ -43,12 +49,8 @@ func newHTTPClient(config Config) *http.Client {
 }
 
 func makeRequest(ctx context.Context, client *http.Client, config Config, method, path string, params url.Values) ([]byte, error) {
-	baseURL := fmt.Sprintf("http://%s", config.Host)
-	if config.Username != "" && config.Password != "" {
-		baseURL = fmt.Sprintf("https://%s", config.Host)
-	}
-
-	reqURL := fmt.Sprintf("%s%s", baseURL, path)
+	// Use the host directly as it now includes the protocol
+	reqURL := fmt.Sprintf("%s%s", config.Host, path)
 	if params != nil {
 		reqURL = fmt.Sprintf("%s?%s", reqURL, params.Encode())
 	}

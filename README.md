@@ -4,7 +4,7 @@
 
 # Gigapipe MCP Server
 
-A Machine Control Protocol (MCP) server for Gigapipe to query metrics, logs, and traces
+A Machine Control Protocol (MCP) server for Gigapipe, providing a unified interface to query Prometheus metrics, Loki logs, and Tempo traces.
 
 ## Features
 
@@ -42,13 +42,16 @@ go build -o gigapipe-mcp
 The server can be configured using environment variables:
 
 ```bash
-# Required: Gigapipe server address (default: localhost:3100)
-export GIGAPIPE_HOST="your-host:3100"
+# Required: Gigapipe server address (default: http://localhost:3100)
+# Must include protocol (http:// or https://)
+export GIGAPIPE_HOST="https://your-host:3100"
 
 # Optional: HTTP Basic Authentication
 export GIGAPIPE_USERNAME="your-username"
 export GIGAPIPE_PASSWORD="your-password"
 ```
+
+Note: If no protocol is specified in GIGAPIPE_HOST, http:// will be used as the default.
 
 ## Usage
 
